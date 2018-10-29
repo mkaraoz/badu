@@ -5,6 +5,7 @@
  */
 package tt.badu.ui.bug;
 
+import core.reporter.Severity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultCellEditor;
@@ -18,8 +19,8 @@ import tt.badu.ui.master.MasterCallback;
  * @author mk
  */
 public class BugListDialog extends javax.swing.JDialog {
-    
-    private MasterCallback callback;
+
+    private final MasterCallback callback;
     private final List<Vulnerability> vulnList = Database.init().selectAll();
 
     /**
@@ -30,7 +31,7 @@ public class BugListDialog extends javax.swing.JDialog {
         initComponents();
         this.callback = (MasterCallback) parent;
         setLocationRelativeTo(parent);
-        setData(); 
+        setData();
     }
 
     /**
@@ -43,31 +44,31 @@ public class BugListDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbOkButton = new javax.swing.JButton();
+        jbCancelButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jtBugTable = new javax.swing.JTable();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACİL", "KRİTİK", "YÜKSEK", "ORTA", "DÜŞÜK" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Zafiyet Listesi");
 
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbOkButton.setText("OK");
+        jbOkButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbOkButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("CANCEL");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbCancelButton.setText("CANCEL");
+        jbCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbCancelButtonActionPerformed(evt);
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtBugTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -90,15 +91,15 @@ public class BugListDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setColumnSelectionAllowed(true);
-        jTable2.setRowHeight(25);
-        jScrollPane2.setViewportView(jTable2);
-        jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTable2.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTable2.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(jComboBox1));
+        jtBugTable.setColumnSelectionAllowed(true);
+        jtBugTable.setRowHeight(25);
+        jScrollPane2.setViewportView(jtBugTable);
+        jtBugTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (jtBugTable.getColumnModel().getColumnCount() > 0) {
+            jtBugTable.getColumnModel().getColumn(0).setMinWidth(50);
+            jtBugTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jtBugTable.getColumnModel().getColumn(0).setMaxWidth(50);
+            jtBugTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(jComboBox1));
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -107,9 +108,9 @@ public class BugListDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbOkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 663, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jScrollPane2)
         );
@@ -119,30 +120,33 @@ public class BugListDialog extends javax.swing.JDialog {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbOkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+    private void jbOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOkButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jtBugTable.getModel();
         List<Vulnerability> selectedVulns = new ArrayList<>();
-        Boolean b = (Boolean) model.getValueAt(0, 0);
-        for(int i = 0; i<model.getRowCount(); i++) {
-            if((Boolean) model.getValueAt(i, 0)) {
-                selectedVulns.add(vulnList.get(i));
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if ((Boolean) model.getValueAt(i, 0)) {
+                String selectedSeverity = model.getValueAt(i, 2).toString();
+                Severity severity = Severity.get(selectedSeverity);
+                Vulnerability v = vulnList.get(i);
+                v.setSeverity(severity);
+                selectedVulns.add(v);
             }
         }
         callback.updateVulnerabilities(selectedVulns);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbOkButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jbCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelButtonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jbCancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,19 +191,19 @@ public class BugListDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JButton jbCancelButton;
+    private javax.swing.JButton jbOkButton;
+    private javax.swing.JTable jtBugTable;
     // End of variables declaration//GEN-END:variables
 
-    private void setData() { 
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+    private void setData() {
+        DefaultTableModel model = (DefaultTableModel) jtBugTable.getModel();
 
         for (int i = 0; i < vulnList.size(); i++) {
             model.addRow(new Object[]{false, vulnList.get(i).getTitle(), vulnList.get(i).getSeverity().getName()});
-            jTable2.getModel().setValueAt(false, i, 0);
+            jtBugTable.getModel().setValueAt(false, i, 0);
         }
     }
 }

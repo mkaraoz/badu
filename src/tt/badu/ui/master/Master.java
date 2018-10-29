@@ -7,6 +7,7 @@ package tt.badu.ui.master;
 
 import core.reporter.Metadata;
 import core.reporter.Reporter;
+import core.reporter.SeveritySorter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -263,6 +264,7 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
         } 
         
         try {
+            SeveritySorter.stupidSort(vulnarabilities);
             Reporter.createReport(meta, vulnarabilities, this);
         } catch (IOException ex) {
             call(ex);

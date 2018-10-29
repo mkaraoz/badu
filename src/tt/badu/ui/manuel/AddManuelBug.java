@@ -20,8 +20,8 @@ import tt.badu.ui.master.UpdateCallback;
  */
 public class AddManuelBug extends javax.swing.JDialog {
 
-    private MasterCallback callback;
-    private UpdateCallback updater;
+    private final MasterCallback callback;
+    private final UpdateCallback updater;
 
     /**
      * Creates new form AddManuelBug

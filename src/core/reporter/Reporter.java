@@ -180,7 +180,7 @@ public class Reporter {
         doc.write(out);
         out.close();
         Reporter.updater.update(projectName + " uygulaması sızma testi raporu başarı ile üretildi.");
-        System.out.println("createdocument.docx written successully");
+        System.out.println(projectName + " uygulaması sızma testi raporu başarı ile üretildi.");
     }
 
     private static Map<Severity, List<Vulnerability>> createCategorizedVulnMap(List<Vulnerability> vulnarabilities) {

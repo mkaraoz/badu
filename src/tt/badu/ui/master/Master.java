@@ -71,11 +71,19 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
 
         jLabel1.setText("Proje Adı");
 
+        tfProjectName.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+
         jLabel2.setText("URL");
+
+        tfUrl.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
 
         jLabel3.setText("Tarih");
 
         jLabel4.setText("Kullanıcı");
+
+        tfDate.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+
+        tfUser.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
 
         jbAddBug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tt/badu/image/Bug-Add-32.png"))); // NOI18N
         jbAddBug.setText("Add Bug");
@@ -174,10 +182,8 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfDate)
                             .addComponent(tfUrl)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(tfProjectName, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfUser))))
+                            .addComponent(tfUser)
+                            .addComponent(tfProjectName, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

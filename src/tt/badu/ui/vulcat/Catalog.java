@@ -69,6 +69,7 @@ public class Catalog extends javax.swing.JFrame {
 
         jSplitPane1.setDividerLocation(300);
 
+        jList.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jListValueChanged(evt);
@@ -83,6 +84,7 @@ public class Catalog extends javax.swing.JFrame {
 
         taBody.setEditable(false);
         taBody.setColumns(20);
+        taBody.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         taBody.setLineWrap(true);
         taBody.setRows(5);
         taBody.setToolTipText("Açıklama...");
@@ -138,6 +140,7 @@ public class Catalog extends javax.swing.JFrame {
 
         taRecommendation.setEditable(false);
         taRecommendation.setColumns(20);
+        taRecommendation.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         taRecommendation.setLineWrap(true);
         taRecommendation.setWrapStyleWord(true);
         taRecommendation.setRows(5);

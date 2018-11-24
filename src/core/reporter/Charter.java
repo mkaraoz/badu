@@ -18,11 +18,14 @@ import java.util.TreeMap;
 
 public class Charter {
 
-    private Charter() {
+    private File rootFolder;
+    
+    private Charter(File rootFolder) {
+        this.rootFolder = rootFolder;
     }
 
-    public static Charter getInstance() {
-        return new Charter();
+    public static Charter getInstance(File rootFolder) {
+        return new Charter(rootFolder);
     }
 
     public String createChart(List<Vulnerability> vulnerabilities, String chartName) throws IOException {
@@ -76,7 +79,8 @@ public class Charter {
     }
 
     private String saveChart2File(JFreeChart chart, String chartName) throws IOException {
-        final String FILE_NAME = chartName + ".png";
+        final String FILE_NAME = rootFolder.getAbsolutePath() + "/"+ chartName + ".png";
+        
         int width = 800;
         /* Width of the image */
         int height = 600;

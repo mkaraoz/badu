@@ -61,5 +61,6 @@ nbdist/
 *.db
 .base/*.*
 
-
 # End of https://www.gitignore.io/api/java,netbeans,microsoftoffice
+
+/src/core/reporter/excel/enums/TestTeam.java

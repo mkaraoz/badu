@@ -20,9 +20,11 @@ public class Reporter {
 
     private static UpdateCallback updater;
     private static String projectName;
+    private static File rootFolder;
 
-    public static void createReport(Metadata meta, List<Vulnerability> vulnarabilities, UpdateCallback updater) throws IOException, InvalidFormatException {
+    public static void createReport(Metadata meta, List<Vulnerability> vulnarabilities, File rootFolder, UpdateCallback updater) throws IOException, InvalidFormatException {
         Reporter.updater = updater;
+        Reporter.rootFolder = rootFolder;
 
         XWPFDocument document = new XWPFDocument(new FileInputStream("./base/master.docx"));
 
@@ -75,7 +77,6 @@ public class Reporter {
 
             paragraph.setBorderBottom(Borders.SINGLE);
             rRecommendation.addCarriageReturn();
-
         }
     }
 
@@ -164,7 +165,7 @@ public class Reporter {
         pChartImage.setAlignment(ParagraphAlignment.CENTER);
         XWPFRun rChartImage = pChartImage.createRun();
         // rChartImage.addCarriageReturn();
-        String chartFilePath = Charter.getInstance().createChart(vulnarabilities, projectName);
+        String chartFilePath = Charter.getInstance(rootFolder).createChart(vulnarabilities, projectName);
         Path chartPath = Paths.get(chartFilePath);
         rChartImage.addPicture(Files.newInputStream(chartPath),
                 XWPFDocument.PICTURE_TYPE_PNG, chartPath.getFileName().toString(),
@@ -176,7 +177,7 @@ public class Reporter {
 
     private static void createDoc(XWPFDocument doc) throws IOException {
         //Write the Document in file system
-        FileOutputStream out = new FileOutputStream(new File("tt_" + projectName + "_rapor.docx"));
+        FileOutputStream out = new FileOutputStream(new File(rootFolder.getAbsolutePath() + "/tt_" + projectName + "_rapor.docx"));
         doc.write(out);
         out.close();
         Reporter.updater.update(projectName + " uygulaması sızma testi raporu başarı ile üretildi.");

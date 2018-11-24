@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tt.badu.ui.master;
 
 import core.reporter.Metadata;
@@ -15,9 +10,19 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import tt.badu.base.ExceptionHandler;
 import core.reporter.Vulnerability;
+import core.reporter.excel.CommonCells;
+import core.reporter.excel.Excel;
+import core.reporter.excel.enums.DefectDetay;
+import core.reporter.excel.enums.DefectDurumu;
+import core.reporter.excel.enums.GecikmeDurumu;
+import core.reporter.excel.enums.ProjeStatus;
+import java.io.File;
 import java.io.IOException;
+import javax.swing.SwingUtilities;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import tt.badu.ui.bug.BugListDialog;
+import tt.badu.ui.excel.BulguOzetForm;
+import tt.badu.ui.excel.DynamicRowData;
 import tt.badu.ui.manuel.AddManuelBug;
 import tt.badu.ui.vulcat.Catalog;
 
@@ -25,7 +30,9 @@ import tt.badu.ui.vulcat.Catalog;
  *
  * @author mk
  */
-public class Master extends javax.swing.JFrame implements MasterCallback, ExceptionHandler.ExceptionCallback, UpdateCallback {
+public class Master extends javax.swing.JFrame implements MasterCallback, ExceptionHandler.ExceptionCallback, UpdateCallback, RowDataCallback {
+
+    private DynamicRowData drd = null;
 
     /**
      * Creates new form Master
@@ -62,6 +69,7 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taLogBox = new javax.swing.JTextArea();
+        jbExcel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("BADU");
@@ -72,6 +80,11 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
         jLabel1.setText("Proje Adı");
 
         tfProjectName.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        tfProjectName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfProjectNameActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("URL");
 
@@ -151,27 +164,41 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
         taLogBox.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jScrollPane2.setViewportView(taLogBox);
 
+        jbExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tt/badu/image/Export-Excel-32.png"))); // NOI18N
+        jbExcel.setText("Excel Data");
+        jbExcel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbExcel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbAddBug, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbAddBug, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbDeleteBug, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbDeleteBug, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbManuelBug, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbManuelBug, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbCatalog, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jbCatalog, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -189,38 +216,37 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfProjectName, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfProjectName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(tfDate, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(tfDate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(tfUser, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbDeleteBug)
-                            .addComponent(jbAddBug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbManuelBug)
-                            .addComponent(jbCatalog)
-                            .addComponent(jbGenerate)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbDeleteBug)
+                    .addComponent(jbAddBug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbManuelBug)
+                    .addComponent(jbExcel)
+                    .addComponent(jbCatalog)
+                    .addComponent(jbGenerate)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -256,30 +282,57 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
 
     private void jbGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGenerateActionPerformed
         log("Rapor üretiliyor.");
-        
-        Metadata meta = new Metadata();
+
+        final Metadata meta = new Metadata();
         meta.projectName = tfProjectName.getText();
-	meta.type = "Web Uygulaması";
-	meta.url = tfUrl.getText();
-	meta.date = tfDate.getText();
-	meta.userID = tfUser.getText(); 
-        
+        meta.type = "Web Uygulaması";
+        meta.url = tfUrl.getText();
+        meta.date = tfDate.getText();
+        meta.userID = tfUser.getText();
+
         List<Vulnerability> vulnarabilities = new ArrayList<>();
-        for(int i = 0; i< jlBugList.getModel().getSize(); i++) {
+        for (int i = 0; i < jlBugList.getModel().getSize(); i++) {
             vulnarabilities.add(jlBugList.getModel().getElementAt(i));
-        } 
-        
+        }
+
         try {
             SeveritySorter.stupidSort(vulnarabilities);
-            Reporter.createReport(meta, vulnarabilities, this);
-        } catch (IOException ex) {
-            call(ex);
-            ex.printStackTrace();
-        } catch (InvalidFormatException ex) {
+
+            File rootFolder = new File(meta.projectName);
+            rootFolder.mkdir();
+
+            Reporter.createReport(meta, vulnarabilities, rootFolder, Master.this);
+
+            if (drd != null) {
+                CommonCells cells = new CommonCells(meta.projectName,
+                        drd.getEtkilenenSistem(), // etkilenen sistem
+                        DefectDetay.TEST_DEFECT,
+                        DefectDurumu.ACIK,
+                        ProjeStatus.ACIK,
+                        drd.getTester(), // pentest contact
+                        drd.getDefectSorumlusu(), // defect sorumlusu
+                        drd.getProjeYoneticisi(), // project manager
+                        drd.getDirektorluk(), // direktorluk
+                        drd.getOrtam(), // test ortamı
+                        GecikmeDurumu.YOK,
+                        drd.getDefectTipi()); // defect type
+                Excel.createExcelSummary(cells, vulnarabilities, rootFolder, Master.this);
+            }
+
+        } catch (IOException | InvalidFormatException ex) {
             call(ex);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jbGenerateActionPerformed
+
+    private void jbExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcelActionPerformed
+        BulguOzetForm bulguForm = new BulguOzetForm(this, true);
+        bulguForm.setVisible(true);
+    }//GEN-LAST:event_jbExcelActionPerformed
+
+    private void tfProjectNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfProjectNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfProjectNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,6 +380,7 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
     private javax.swing.JButton jbAddBug;
     private javax.swing.JButton jbCatalog;
     private javax.swing.JButton jbDeleteBug;
+    private javax.swing.JButton jbExcel;
     private javax.swing.JButton jbGenerate;
     private javax.swing.JButton jbManuelBug;
     private javax.swing.JList<Vulnerability> jlBugList;
@@ -342,7 +396,7 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
         for (Vulnerability v : selectedVulnerabilities) {
             addToList(v);
             log("BUG: " + v.getTitle() + " - listeye eklendi.");
-        } 
+        }
     }
 
     private void addToList(Vulnerability v) {
@@ -351,8 +405,12 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
     }
 
     private void log(String log) {
-        taLogBox.append("> " + log);
-        taLogBox.append("\n");
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                taLogBox.append("\n" + "> " + log);
+            }
+        });
     }
 
     @Override
@@ -367,5 +425,10 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
     @Override
     public void update(String update) {
         log(update);
+    }
+
+    @Override
+    public void setDynamicRowData(DynamicRowData drd) {
+        this.drd = drd;
     }
 }

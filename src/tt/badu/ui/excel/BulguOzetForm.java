@@ -2,6 +2,7 @@ package tt.badu.ui.excel;
 
 import core.reporter.excel.enums.DefectTipi;
 import core.reporter.excel.enums.Ortam;
+import core.reporter.excel.enums.Sirket;
 import core.reporter.excel.enums.TestTeam;
 import tt.badu.ui.master.RowDataCallback;
 import tt.badu.ui.master.UpdateCallback;
@@ -52,6 +53,8 @@ public class BulguOzetForm extends javax.swing.JDialog {
         cbOrtam = new javax.swing.JComboBox<>();
         cbDefectType = new javax.swing.JComboBox<>();
         jbSave = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        cbSirket = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -93,7 +96,7 @@ public class BulguOzetForm extends javax.swing.JDialog {
         cbOrtam.setNextFocusableComponent(cbDefectType);
         cbOrtam.setPreferredSize(new java.awt.Dimension(84, 33));
 
-        cbDefectType.setNextFocusableComponent(jbSave);
+        cbDefectType.setNextFocusableComponent(cbSirket);
         cbDefectType.setPreferredSize(new java.awt.Dimension(129, 33));
 
         jbSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tt/badu/image/Box-Down.png"))); // NOI18N
@@ -106,6 +109,17 @@ public class BulguOzetForm extends javax.swing.JDialog {
         jbSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSaveActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel8.setText("Ortam");
+
+        cbSirket.setNextFocusableComponent(jbSave);
+        cbSirket.setPreferredSize(new java.awt.Dimension(84, 33));
+        cbSirket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSirketActionPerformed(evt);
             }
         });
 
@@ -133,7 +147,11 @@ public class BulguOzetForm extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbDefectType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbOrtam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbSirket, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(jbSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cbTester, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -166,7 +184,9 @@ public class BulguOzetForm extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(cbOrtam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbOrtam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(cbSirket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -194,9 +214,14 @@ public class BulguOzetForm extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jbSaveActionPerformed
 
+    private void cbSirketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSirketActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbSirketActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbDefectType;
     private javax.swing.JComboBox<String> cbOrtam;
+    private javax.swing.JComboBox<String> cbSirket;
     private javax.swing.JComboBox<String> cbTester;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -205,6 +230,7 @@ public class BulguOzetForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbSave;
     private javax.swing.JTextField tfDefectSorumlusu;
@@ -221,6 +247,7 @@ public class BulguOzetForm extends javax.swing.JDialog {
         String direktorluk = tfSorumluDirektorluk.getText();
         String ortam = cbOrtam.getSelectedItem().toString();
         String defectTipi = cbDefectType.getSelectedItem().toString();
+        String sirket = cbSirket.getSelectedItem().toString();
 
         DynamicRowData drd = new DynamicRowData();
         drd.setEtkilenenSistem(etkilenenSistem);
@@ -230,6 +257,7 @@ public class BulguOzetForm extends javax.swing.JDialog {
         drd.setDirektorluk(direktorluk);
         drd.setOrtam(ortam);
         drd.setDefectTipi(defectTipi);
+        drd.setSirket(sirket);
 
         updater.update("Dinamik hücre verileri kaydedildi.");
         callback.setDynamicRowData(drd);
@@ -256,5 +284,12 @@ public class BulguOzetForm extends javax.swing.JDialog {
             defectVals[i] = defectEnums[i].getText();
         }
         cbDefectType.setModel(new javax.swing.DefaultComboBoxModel<>(defectVals));
+        
+        Sirket[] sirketEnums = Sirket.values();
+        String sirketVals[] = new String[sirketEnums.length];
+        for (int i = 0; i < sirketVals.length; i++) {
+            sirketVals[i] = sirketEnums[i].getText();
+        }
+        cbSirket.setModel(new javax.swing.DefaultComboBoxModel<>(sirketVals));
     }
 }

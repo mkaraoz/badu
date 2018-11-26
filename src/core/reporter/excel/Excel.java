@@ -57,7 +57,7 @@ public class Excel
 
             rowData.setDefect_adedi("1");
 
-            rowData.setSirket("Türk Telekom");
+            rowData.setSirket(cells.sirket);
 
             rowData.setProje_statu(cells.projeStatus.getText());
 

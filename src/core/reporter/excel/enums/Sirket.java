@@ -3,25 +3,25 @@ package core.reporter.excel.enums;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ProjeStatus
+public enum Sirket
 {
-    ACIK("Açık"), TAMAMLANDI("Tamalandı");
+    TURK_TELEKOM("Türk Telekom"), TT_NET("TTNET"), AVEA("AVEA"), BOS("");
 
     private String text;
 
-    ProjeStatus(String text) {
+    Sirket(String text) {
         this.text = text;
     }
 
-    private static final Map<String, ProjeStatus> reverseLookUpMap = new HashMap<>();
+    private static final Map<String, Sirket> reverseLookUpMap = new HashMap<>();
 
     static {
-        for (ProjeStatus detay : ProjeStatus.values()) {
+        for (Sirket detay : Sirket.values()) {
             reverseLookUpMap.put(detay.text, detay);
         }
     }
 
-    public static ProjeStatus get(String text) {
+    public static Sirket get(String text) {
         return reverseLookUpMap.get(text);
     }
 

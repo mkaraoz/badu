@@ -81,11 +81,6 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
         jLabel1.setText("Proje Adı");
 
         tfProjectName.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        tfProjectName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfProjectNameActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("URL");
 
@@ -309,14 +304,15 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
                         drd.getEtkilenenSistem(), // etkilenen sistem
                         DefectDetay.TEST_DEFECT,
                         DefectDurumu.ACIK,
-                        ProjeStatus.ACIK,
+                        ProjeStatus.TAMAMLANDI,
                         drd.getTester(), // pentest contact
                         drd.getDefectSorumlusu(), // defect sorumlusu
                         drd.getProjeYoneticisi(), // project manager
                         drd.getDirektorluk(), // direktorluk
                         drd.getOrtam(), // test ortamı
                         GecikmeDurumu.YOK,
-                        drd.getDefectTipi()); // defect type
+                        drd.getDefectTipi(), // defect type
+                        drd.getSirket()); // sirket tt, ttnet, avea
                 Excel.createExcelSummary(cells, vulnarabilities, rootFolder, Master.this);
             }
 
@@ -330,10 +326,6 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
         BulguOzetForm bulguForm = new BulguOzetForm(this, true);
         bulguForm.setVisible(true);
     }//GEN-LAST:event_jbExcelActionPerformed
-
-    private void tfProjectNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfProjectNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfProjectNameActionPerformed
 
     /**
      * @param args the command line arguments

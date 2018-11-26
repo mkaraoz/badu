@@ -19,8 +19,9 @@ public class CommonCells
     final String ortam;
     final GecikmeDurumu gecikmeDurumu;
     final String defectTipi;
+    final String sirket;
 
-    public CommonCells(String projeAdi, String etkilenenSistem, DefectDetay defectDetay, DefectDurumu defectDurumu, ProjeStatus projeStatus, String pentestContact, String defectSorumlusu, String projeYoneticisi, String direktorluk, String ortam, GecikmeDurumu gecikmeDurumu, String defectTipi)
+    public CommonCells(String projeAdi, String etkilenenSistem, DefectDetay defectDetay, DefectDurumu defectDurumu, ProjeStatus projeStatus, String pentestContact, String defectSorumlusu, String projeYoneticisi, String direktorluk, String ortam, GecikmeDurumu gecikmeDurumu, String defectTipi, String sirket)
     {
         this.projeAdi = projeAdi;
         this.etkilenenSistem = etkilenenSistem;
@@ -34,6 +35,6 @@ public class CommonCells
         this.ortam = ortam;
         this.gecikmeDurumu = gecikmeDurumu;
         this.defectTipi = defectTipi;
+        this.sirket = sirket;
     }
-
 }

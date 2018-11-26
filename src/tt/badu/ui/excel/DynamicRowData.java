@@ -14,6 +14,7 @@ public class DynamicRowData {
     private String direktorluk;
     private String ortam;
     private String defectTipi;
+    private String sirket;
 
     public String getEtkilenenSistem() {
         return etkilenenSistem;
@@ -69,5 +70,13 @@ public class DynamicRowData {
 
     public void setDefectTipi(String defectTipi) {
         this.defectTipi = defectTipi;
+    }
+
+    public String getSirket() {
+        return sirket;
+    }
+
+    public void setSirket(String sirket) {
+        this.sirket = sirket;
     }
 }

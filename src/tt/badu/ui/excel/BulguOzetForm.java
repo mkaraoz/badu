@@ -1,4 +1,3 @@
-
 package tt.badu.ui.excel;
 
 import core.reporter.excel.enums.DefectTipi;
@@ -13,7 +12,7 @@ import tt.badu.ui.master.UpdateCallback;
  */
 public class BulguOzetForm extends javax.swing.JDialog {
 
-    private RowDataCallback callback;
+    private final RowDataCallback callback;
     private final UpdateCallback updater;
 
     /**
@@ -91,13 +90,17 @@ public class BulguOzetForm extends javax.swing.JDialog {
 
         tfSorumluDirektorluk.setPreferredSize(new java.awt.Dimension(10, 33));
 
+        cbOrtam.setNextFocusableComponent(cbDefectType);
         cbOrtam.setPreferredSize(new java.awt.Dimension(84, 33));
 
+        cbDefectType.setNextFocusableComponent(jbSave);
         cbDefectType.setPreferredSize(new java.awt.Dimension(129, 33));
 
         jbSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tt/badu/image/Box-Down.png"))); // NOI18N
         jbSave.setText("Kaydet");
+        jbSave.setToolTipText("");
         jbSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbSave.setNextFocusableComponent(tfEtkilenenSistem);
         jbSave.setPreferredSize(new java.awt.Dimension(100, 62));
         jbSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jbSave.addActionListener(new java.awt.event.ActionListener() {

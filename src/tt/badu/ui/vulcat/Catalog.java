@@ -314,7 +314,7 @@ public class Catalog extends javax.swing.JFrame {
             jList.setSelectedIndex(0);
         } else {
             jList.setSelectedIndex(lastIndex - 1);
-        };
+        }
     }//GEN-LAST:event_bDeleteActionPerformed
 
     private void taBodyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taBodyKeyPressed

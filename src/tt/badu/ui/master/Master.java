@@ -32,12 +32,13 @@ import tt.badu.ui.vulcat.Catalog;
  */
 public class Master extends javax.swing.JFrame implements MasterCallback, ExceptionHandler.ExceptionCallback, UpdateCallback, RowDataCallback {
 
-    private DynamicRowData drd = null;
+    private DynamicRowData drd;
 
     /**
      * Creates new form Master
      */
     public Master() {
+        this.drd = null;
         initComponents();
         ExceptionHandler.registerExceptionHandler(this);
     }
@@ -363,6 +364,7 @@ public class Master extends javax.swing.JFrame implements MasterCallback, Except
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Master().setVisible(true);
             }

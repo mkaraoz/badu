@@ -13,7 +13,7 @@ public enum GecikmeDurumu
         this.text = text;
     }
 
-    private static Map<String, GecikmeDurumu> reverseLookUpMap = new HashMap<>();
+    private static final Map<String, GecikmeDurumu> reverseLookUpMap = new HashMap<>();
 
     static {
         for (GecikmeDurumu detay : GecikmeDurumu.values()) {

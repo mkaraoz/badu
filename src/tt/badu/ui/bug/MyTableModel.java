@@ -16,10 +16,11 @@ public class MyTableModel extends AbstractTableModel {
         "Zafiyet",
         "Seviye"};
 
-    private final List<Vulnerability> mVulnerabilites = Database.init().selectAll();
+    private final List<Vulnerability> mVulnerabilites;
     private Object[][] data;
 
     public MyTableModel() {
+        this.mVulnerabilites = Database.init().selectAll();
         data = new Object[mVulnerabilites.size()][3];
 
         for (int i = 0; i < mVulnerabilites.size(); i++) {
@@ -68,11 +69,7 @@ public class MyTableModel extends AbstractTableModel {
     public boolean isCellEditable(int row, int col) {
         //Note that the data/cell address is constant,
         //no matter where the cell appears onscreen.
-        if (col == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return col == 0;
     }
 
     /*

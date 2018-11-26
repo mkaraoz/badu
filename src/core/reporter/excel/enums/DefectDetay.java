@@ -13,7 +13,7 @@ public enum DefectDetay
         this.text = text;
     }
 
-    private static Map<String, DefectDetay> reverseLookUpMap = new HashMap<>();
+    private static final Map<String, DefectDetay> reverseLookUpMap = new HashMap<>();
 
     static {
         for (DefectDetay detay : DefectDetay.values()) {

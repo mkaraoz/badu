@@ -18,7 +18,7 @@ import java.util.TreeMap;
 
 public class Charter {
 
-    private File rootFolder;
+    private final File rootFolder;
     
     private Charter(File rootFolder) {
         this.rootFolder = rootFolder;

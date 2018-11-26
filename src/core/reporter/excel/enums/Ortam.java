@@ -13,7 +13,7 @@ public enum Ortam
         this.text = text;
     }
 
-    private static Map<String, Ortam> reverseLookUpMap = new HashMap<>();
+    private static final Map<String, Ortam> reverseLookUpMap = new HashMap<>();
 
     static {
         for (Ortam detay : Ortam.values()) {

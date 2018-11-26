@@ -28,7 +28,9 @@ hs_err_pid*
 
 ### MicrosoftOffice ###
 *.docx
-*.docx#
+*.xls
+*.xlsx
+*.docx
 *.tmp
 
 # Word temporary

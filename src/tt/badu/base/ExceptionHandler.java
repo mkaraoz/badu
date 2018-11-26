@@ -7,12 +7,13 @@ package tt.badu.base;
  */
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
-    private ExceptionCallback callback;
+    private final ExceptionCallback callback;
     
     private ExceptionHandler(ExceptionCallback ec) {
         callback = ec;
     }
     
+    @Override
     public void uncaughtException(Thread t, Throwable e) {
         e.printStackTrace();
         handle(e);

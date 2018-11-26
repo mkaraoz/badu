@@ -35,7 +35,7 @@ public enum Severity {
         return chartColor;
     }
 
-    private static Map<String, Severity> reverseLookUpMap = new HashMap<>();
+    private static final Map<String, Severity> reverseLookUpMap = new HashMap<>();
 
     static {
         for (Severity severity : Severity.values()) {

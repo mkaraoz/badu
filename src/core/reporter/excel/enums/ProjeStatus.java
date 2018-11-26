@@ -13,7 +13,7 @@ public enum ProjeStatus
         this.text = text;
     }
 
-    private static Map<String, ProjeStatus> reverseLookUpMap = new HashMap<>();
+    private static final Map<String, ProjeStatus> reverseLookUpMap = new HashMap<>();
 
     static {
         for (ProjeStatus detay : ProjeStatus.values()) {

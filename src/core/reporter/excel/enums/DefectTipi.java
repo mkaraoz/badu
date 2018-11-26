@@ -15,7 +15,7 @@ public enum DefectTipi
         this.text = text;
     }
 
-    private static Map<String, DefectTipi> reverseLookUpMap = new HashMap<>();
+    private static final Map<String, DefectTipi> reverseLookUpMap = new HashMap<>();
 
     static {
         for (DefectTipi detay : DefectTipi.values()) {

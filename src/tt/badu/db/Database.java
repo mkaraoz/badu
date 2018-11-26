@@ -18,14 +18,14 @@ import core.reporter.Vulnerability;
  */
 public final class Database {
 
-    private static final Database d = new Database();
+    private static final Database database = new Database();
 
     private Database() {
         connect();
     }
 
     public static Database init() {
-        return d;
+        return database;
     }
 
     private Connection connect() {

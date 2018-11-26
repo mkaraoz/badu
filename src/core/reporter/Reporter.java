@@ -176,10 +176,10 @@ public class Reporter {
     }
 
     private static void createDoc(XWPFDocument doc) throws IOException {
-        //Write the Document in file system
-        FileOutputStream out = new FileOutputStream(new File(rootFolder.getAbsolutePath() + "/tt_" + projectName + "_rapor.docx"));
-        doc.write(out);
-        out.close();
+        try ( //Write the Document in file system
+                FileOutputStream out = new FileOutputStream(new File(rootFolder.getAbsolutePath() + "/tt_" + projectName + "_rapor.docx"))) {
+            doc.write(out);
+        }
         Reporter.updater.update(projectName + " uygulaması sızma testi raporu başarı ile üretildi.");
         System.out.println(projectName + " uygulaması sızma testi raporu başarı ile üretildi.");
     }

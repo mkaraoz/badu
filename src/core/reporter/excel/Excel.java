@@ -19,17 +19,11 @@ import tt.badu.ui.master.UpdateCallback;
 
 public class Excel
 {
-    private static File rootFolder;
-    private static UpdateCallback updater;
-    
     public static void createExcelSummary(final CommonCells cells,
                                           final List<Vulnerability> vulnerabilityList,
                                           File rootFolder,
                                           UpdateCallback updater) throws IOException
     {
-        Excel.updater = updater;
-        Excel.rootFolder = rootFolder;
-        
         XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream("./base/bulgu_master.xlsx"));
 
         Date date = new Date();

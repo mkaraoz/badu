@@ -33,7 +33,6 @@ hs_err_pid*
 *.docx
 *.tmp
 
-
 # Word temporary
 ~$*.doc*
 

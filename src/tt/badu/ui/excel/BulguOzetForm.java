@@ -24,7 +24,7 @@ public class BulguOzetForm extends javax.swing.JDialog {
         callback = (RowDataCallback) parent;
         updater = (UpdateCallback) parent;
         initComponents();
-
+        setLocationRelativeTo(parent);
         fillComboBoxes();
     }
 

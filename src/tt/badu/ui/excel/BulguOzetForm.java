@@ -23,6 +23,7 @@ public class BulguOzetForm extends javax.swing.JDialog {
         super(parent, modal);
         callback = (RowDataCallback) parent;
         updater = (UpdateCallback) parent;
+        setTitle("Bulgu Özeti");
         initComponents();
         setLocationRelativeTo(parent);
         fillComboBoxes();
@@ -57,6 +58,7 @@ public class BulguOzetForm extends javax.swing.JDialog {
         cbSirket = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -113,7 +115,7 @@ public class BulguOzetForm extends javax.swing.JDialog {
         });
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel8.setText("Ortam");
+        jLabel8.setText("Şirket");
 
         cbSirket.setNextFocusableComponent(jbSave);
         cbSirket.setPreferredSize(new java.awt.Dimension(84, 33));
@@ -199,11 +201,11 @@ public class BulguOzetForm extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

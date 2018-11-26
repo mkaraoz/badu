@@ -11,7 +11,7 @@ public enum Severity {
     KRITIK  ("KRİTİK",  TTColor.CRITICAL_RED  , TTColor.CRITICAL_RED    ),
     YUKSEK  ("YÜKSEK",  TTColor.HIGH_RED      , TTColor.HIGH_RED        ),
     ORTA    ("ORTA"  ,  TTColor.MID_YELLOW    , TTColor.MID_YELLOW      ),
-    DUSUK   ("DÜŞÜK" ,  TTColor.LOW_YELLOW    , TTColor.LOW_YELLOW_2    );
+    DUSUK   ("DÜŞÜK" ,  TTColor.BLUE          , TTColor.LOW_YELLOW_2    );
 
     private String name;
     private final String reportColor;

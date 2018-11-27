@@ -5,7 +5,7 @@ import java.util.Map;
 
 public enum ProjeStatus
 {
-    ACIK("Açık"), TAMAMLANDI("Tamalandı");
+    DEVAM_EDIYOR("Devam Ediyor"), TAMAMLANDI("Tamamlandı");
 
     private String text;
 

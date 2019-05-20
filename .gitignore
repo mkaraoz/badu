@@ -65,4 +65,7 @@ nbdist/
 
 # End of https://www.gitignore.io/api/java,netbeans,microsoftoffice
 
+# mac files
+.DS_Store
+
 /src/core/reporter/excel/enums/TestTeam.java
